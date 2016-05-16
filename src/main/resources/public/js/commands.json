@@ -1,0 +1,18 @@
+{
+	
+	"dumpFollowerIDs":[
+		"uname", "limit","output"
+	],
+	"dumpGeoDetails":[
+	"uname", "limit","output"
+	]
+	,
+	"dumpHomeTimeLine":[
+	"output"
+	]
+
+}
+
+
+
+
