@@ -208,10 +208,11 @@ function getJsonFormData(){
 function sendAjaxRequest(formData){
 	$.ajax({
 		type: 'POST',
-		//async: true,
-		url: 'request.php',
-		//. url: 'http://localhost:9191/tsak/api',
-		data: formData,//JSON.stringify(formData),
+		async: true,
+		//. url: 'request.php',
+		contentType: "application/json",
+		url: 'http://localhost:9191/tsak/api',
+		data: /*formData,*/ JSON.stringify(formData),
 		dataType: "json",
 		beforeSend: function (request){
 		  console.log(JSON.stringify(formData));
@@ -223,15 +224,16 @@ function sendAjaxRequest(formData){
 			$("#output-panel").css("display","block");
 			$("#json").empty();
 			$('#json').html(library.json.prettyPrint(response));
-			if(response.error == null){
-				$("#data_downloader").removeClass("not-active");
+			if(response['error'] == null){
+				$("#data_downloader").css("display", "inline-block");
 				$("#data_downloader").attr("href", "data_downloader.php?filename="+response.absolutePath);
 			}else{
-				$("#data_downloader").addClass("not-active");
+				$("#data_downloader").css("display", "none");
 			}
 			return response;
 		},
 		error: function(jqXHR, textStatus, ex){
+			$("#data_downloader").css("display", "none");
 			console.log(jqXHR);
 			console.log(textStatus);
 			console.log(ex);
