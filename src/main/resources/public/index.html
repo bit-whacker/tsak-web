@@ -44,11 +44,23 @@
 			color: #d9534f;
 			margin: 5px 2px;
 		}
+		#data_downloader{
+			display:none;
+			padding: 10px;
+			border: 1px solid #ddd;
+			background: #5CB85C;
+			color: #fff;
+			text-decoration: none;
+		}
+		.not-active {
+		    pointer-events: none;
+			cursor: default;
+			background: #C7C7C7 !important;
+		}
 	</style>
 </head>
 
 <body>
-	<iframe id="downloadFrame" style="display:none"></iframe>
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -134,9 +146,8 @@
 			  <label class="label label-success">Output Json</label></br>
               <pre><code id="json"></code></pre>
             </div>
-			<span id="download_file">download it</span>
         </div>
-
+		<a id="data_downloader" href="#">download file</a>
         <hr class="featurette-divider">
 
         <!-- Footer -->

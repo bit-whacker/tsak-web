@@ -54,11 +54,7 @@ var commandJson = {
 			]
 		};
 $(document).ready(function(){
-	$("#download_file").on("click", function(){
-		var iframe = document.getElementById("downloadFrame");
-		iframe.src = "file://localhost/F|/books/fynder_clean/twitter-swiss-army-knife/bit_out.out";
-		window.location.href = "file://localhost/F|/books/fynder_clean/twitter-swiss-army-knife/bit_out.out";
-	});
+
 	addSelectFields();
 	showHide();
 	//onclick function
@@ -101,6 +97,7 @@ $(document).ready(function(){
 
 //function to add items to select and add fields to form
 function addSelectFields(){
+
 	//make a json data
 		
 		for(var item in commandJson){
@@ -123,7 +120,27 @@ function addSelectFields(){
 		});
 		//. fire dropDown onChange event
 		$("#commands-select").trigger('change');
+
+//make a json data
+	for(var item in commandJson){
+		$("#commands-select").append("<option value="+item+">"+item+"</option>");
+
 	}
+	$("#commands-select").change(function(){
+		//console.log($(this).val());
+		$(this).find("option:selected").each(function(){
+			var v = $(this).attr("value");
+			var fields = commandJson[v];
+			$('.commands-selected').empty();
+			for(var vi in fields){
+				var fieldLabel = fields[vi];
+				$('.commands-selected').append('<div class="form-group"><label class="label label-default dynamic-label">'+fieldLabel+'</label><input type="text" class="form-control inputcommand" name="'+fieldLabel+'" id="'+fieldLabel+'" required></div>');
+			}
+		});
+	});
+	//. fire dropDown onChange event
+	$("#commands-select").trigger('change');
+}
 //function to showhide application keys fields
 function showHide(){
 	//keys configuration
@@ -227,23 +244,31 @@ function sendAjaxRequest(formData){
 	$.ajax({
 		type: 'POST',
 		async: true,
-		url: 'http://localhost:9191/tsak/api',
-		data: JSON.stringify(formData),
+		//. url: 'request.php',
 		contentType: "application/json",
+		url: 'http://localhost:9191/tsak/api',
+		data: /*formData,*/ JSON.stringify(formData),
 		dataType: "json",
 		beforeSend: function (request){
-		   //. set headers
+		  console.log(JSON.stringify(formData));
 		},
 		success: function(response){
 			var jsonPrettyPrint = JSON.stringify(response); //. syntaxHighlight(response);
-			//console.log(myString);
+			console.log(response);
 
 			$("#output-panel").css("display","block");
 			$("#json").empty();
 			$('#json').html(library.json.prettyPrint(response));
+			if(response['error'] == null){
+				$("#data_downloader").css("display", "inline-block");
+				$("#data_downloader").attr("href", "data_downloader.php?filename="+response.absolutePath);
+			}else{
+				$("#data_downloader").css("display", "none");
+			}
 			return response;
 		},
 		error: function(jqXHR, textStatus, ex){
+			$("#data_downloader").css("display", "none");
 			console.log(jqXHR);
 			console.log(textStatus);
 			console.log(ex);
