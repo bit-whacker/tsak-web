@@ -120,26 +120,6 @@ function addSelectFields(){
 		});
 		//. fire dropDown onChange event
 		$("#commands-select").trigger('change');
-
-//make a json data
-	for(var item in commandJson){
-		$("#commands-select").append("<option value="+item+">"+item+"</option>");
-
-	}
-	$("#commands-select").change(function(){
-		//console.log($(this).val());
-		$(this).find("option:selected").each(function(){
-			var v = $(this).attr("value");
-			var fields = commandJson[v];
-			$('.commands-selected').empty();
-			for(var vi in fields){
-				var fieldLabel = fields[vi];
-				$('.commands-selected').append('<div class="form-group"><label class="label label-default dynamic-label">'+fieldLabel+'</label><input type="text" class="form-control inputcommand" name="'+fieldLabel+'" id="'+fieldLabel+'" required></div>');
-			}
-		});
-	});
-	//. fire dropDown onChange event
-	$("#commands-select").trigger('change');
 }
 //function to showhide application keys fields
 function showHide(){
