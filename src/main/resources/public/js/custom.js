@@ -27,22 +27,30 @@ library.json = {
 
 var commandJson = {
 			"dumpFollowerIDs":[
-				"-uname", "-limit", "-o"
+				{"field_name":"-uname","desc":"Enter twitter screen name"},
+				{"field_name":"-limit","desc":"Enter twitter API limit Max = 15"},
+				{"field_name":"-o","desc":"Enter output file name with extension"}
 			],
 			"dumpFriendIDs":[
-				"-uname", "-limit", "-o"
+				{"field_name":"-uname","desc":"Enter twitter screen name"},
+				{"field_name":"-limit","desc":"Enter twitter API limit Max = 15"},
+				{"field_name":"-o","desc":"Enter output file name with extension"}
 			],
 			"dumpTweets":[
-				"-keywords", "-limit", "-o"
+				{"field_name":"-keywords","desc":"Comma separated keywords"},
+				{"field_name":"-limit","desc":"Enter twitter API limit Max = 180"},
+				{"field_name":"-o","desc":"Enter output file name with extension"}
 			],
 			"dumpStatus":[
-				"-sid", "-o"
+				{"field_name":"-sid","desc":"Enter Status ID of the desired status"},
+				{"field_name":"-o","desc":"Enter output file name with extension"}
 			],
 			"dumpGeoDetails":[
-				"-pid","-o"
+				{"field_name":"-pid","desc":"Place ID, for which the geo details will be returned"},
+				{"field_name":"-o","desc":"Enter output file name with extension"}
 			],
 			"dumpHomeTimeLine":[
-				"-o"
+				{"field_name":"-o","desc":"Enter output file name with extension"}
 			]
 		};
 $(document).ready(function(){
@@ -63,14 +71,16 @@ $(document).ready(function(){
 
 			for(var comm in commandOptions){
 				var showfield = commandOptions[comm];
-				var fieldValue = $("input[id='"+showfield+"']").val();
+				var showfieldname = showfield.field_name;
+				var fieldValue = $("input[id='"+showfieldname+"']").val();
+
 				fieldValue = fieldValue.trim();
 				if(fieldValue === ""){
-					var parent = $("#"+showfield).parent().get(0);
+					var parent = $("#"+showfieldname).parent().get(0);
 					var expectedLabel = $(parent).children().get(0);
 					$(expectedLabel).removeClass("label-default");
 					$(expectedLabel).addClass("label-danger");
-					$( "#"+showfield).keypress(function() {
+					$( "#"+showfieldname).keypress(function() {
 					  $(expectedLabel).removeClass("label-danger");
 					  $(expectedLabel).addClass("label-default");
 					});
@@ -104,8 +114,10 @@ function addSelectFields(){
 				var fields = commandJson[v];
 				$('.commands-selected').empty();
 				for(var vi in fields){
-					var fieldLabel = fields[vi];
-					$('.commands-selected').append('<div class="form-group"><label class="label label-default dynamic-label">'+fieldLabel+'</label><input type="text" class="form-control inputcommand" name="'+fieldLabel+'" id="'+fieldLabel+'" required></div>');
+					var fieldobj = fields[vi];
+					var field_name = fieldobj.field_name;
+					var field_desc = fieldobj.desc;
+					$('.commands-selected').append('<div class="form-group"><label class="label label-default dynamic-label">'+field_name+'</label><input type="text" class="form-control inputcommand"  placeholder="'+field_desc+'" name="'+field_name+'" id="'+field_name+'" required></div>');
 				}
 			});
 		});
