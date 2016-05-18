@@ -116,6 +116,17 @@ function addSelectFields(){
 					var field_desc = fieldobj.desc;
 					$('.commands-selected').append('<div class="form-group"><label class="label label-default dynamic-label">'+field_name+'</label><input type="text" class="form-control inputcommand"  placeholder="'+field_desc+'" name="'+field_name+'" id="'+field_name+'" required></div>');
 				}
+				if(v == "dumpTweets"){
+					$('.checkbox-div').prepend('<div class="synch_chk_div form-group"><input type="checkbox" name="synch_chk" id="synch_chk"><span class="sync-txt">Sentiments</span></div>');
+				}
+				$('#synch_chk').click(function() {
+				if ( $('input[name="synch_chk"]').is(':checked') ) {
+					$('.synch_chk_div').append('<div class="radio_chk_div form-group"><form action=""><input type="radio" name="synch_rad" id="radio_1" value="radio_1" checked><span class="sync-txt">Negative</span><br><input type="radio" name="synch_rad" id="radio_2" value="radio_2"><span class="sync-txt">Positive</span></form></div>');
+				}
+				else if (!$('input[name="synch_chk"]').is(':checked') ) {
+					$('.radio_chk_div').hide();
+				}
+				});
 			});
 		});
 		//. fire dropDown onChange event
