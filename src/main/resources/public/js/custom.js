@@ -115,10 +115,13 @@ function addSelectFields(){
 					var field_name = fieldobj.field_name;
 					var field_desc = fieldobj.desc;
 					$( ".synch_chk_div" ).remove();
+					$('.checkbox-div').removeClass("checkbox-area");
+
 					$('.commands-selected').append('<div class="form-group"><label class="label label-default dynamic-label">'+field_name+'</label><input type="text" class="form-control inputcommand"  placeholder="'+field_desc+'" name="'+field_name+'" id="'+field_name+'" required></div>');
 				}
 				if(v == "dumpTweets"){
 					$( ".synch_chk_div" ).remove();
+					$('.checkbox-div').addClass("checkbox-area");
 					$('.checkbox-div').prepend('<div class="synch_chk_div form-group"><input type="checkbox" name="synch_chk" id="synch_chk"><span class="sync-txt">Sentiments</span></div>');
 				}
 				$('#synch_chk').click(function() {
