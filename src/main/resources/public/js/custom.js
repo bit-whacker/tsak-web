@@ -122,7 +122,7 @@ function addSelectFields(){
 				if(v == "dumpTweets"){
 					$( ".synch_chk_div" ).remove();
 					$('.checkbox-div').addClass("checkbox-area");
-					$('.checkbox-div').prepend('<div class="synch_chk_div form-group"><input type="checkbox" name="synch_chk" id="synch_chk"><span class="sync-txt">Sentiments</span></div>');
+					$('.checkbox-div').prepend('<div class="synch_chk_div form-group"><input type="checkbox" name="synch_chk" id="synch_chk"><span class="sync-txt">Options</span></div>');
 				}
 				$('#synch_chk').click(function() {
 				if ( $('input[name="synch_chk"]').is(':checked') ) {
