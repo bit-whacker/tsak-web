@@ -51,7 +51,9 @@ body {
     height: 400px;
     overflow: auto;
 }
-
+.sync-txt{
+    margin-left: 5px;
+}
 .checkbox-area{
     border: 1px solid #ccc;
     padding: 10px;
