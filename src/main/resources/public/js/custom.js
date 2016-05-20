@@ -114,14 +114,16 @@ function addSelectFields(){
 					var fieldobj = fields[vi];
 					var field_name = fieldobj.field_name;
 					var field_desc = fieldobj.desc;
+					$( ".synch_chk_div" ).remove();
 					$('.commands-selected').append('<div class="form-group"><label class="label label-default dynamic-label">'+field_name+'</label><input type="text" class="form-control inputcommand"  placeholder="'+field_desc+'" name="'+field_name+'" id="'+field_name+'" required></div>');
 				}
 				if(v == "dumpTweets"){
+					$( ".synch_chk_div" ).remove();
 					$('.checkbox-div').prepend('<div class="synch_chk_div form-group"><input type="checkbox" name="synch_chk" id="synch_chk"><span class="sync-txt">Sentiments</span></div>');
 				}
 				$('#synch_chk').click(function() {
 				if ( $('input[name="synch_chk"]').is(':checked') ) {
-					$('.synch_chk_div').append('<div class="radio_chk_div form-group"><form action=""><input type="radio" name="synch_rad" id="radio_1" value="radio_1" checked><span class="sync-txt">Negative</span><br><input type="radio" name="synch_rad" id="radio_2" value="radio_2"><span class="sync-txt">Positive</span></form></div>');
+					$('.synch_chk_div').append('<div class="radio_chk_div form-group"><form action=""><input type="radio" name="synch_rad" id="radio_1" value="radio_1" checked><span class="sync-txt">Filter Negative</span><br><input type="radio" name="synch_rad" id="radio_2" value="radio_2"><span class="sync-txt">Filter Positive</span><br><input type="radio" name="synch_rad" id="radio_3" value="radio_3"><span class="sync-txt">Extract Entities</span></form></div>');
 				}
 				else if (!$('input[name="synch_chk"]').is(':checked') ) {
 					$('.radio_chk_div').hide();
@@ -199,6 +201,12 @@ function getJsonFormData(){
 	        var fieldname = input.attr('name');
 	        var fieldvalue = input.val();
 			
+
+	        if(fieldname == "sentiment-checkbox" && fieldvalue.isChecked()){
+
+	        }else{
+
+	        }
 			if(fieldname == "-o"){
 				fieldvalue = fieldvalue.replace(/\\/g, '');
 				fieldvalue = fieldvalue.replace(/\//g, '');
