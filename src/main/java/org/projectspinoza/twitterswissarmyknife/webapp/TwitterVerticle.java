@@ -46,7 +46,7 @@ public class TwitterVerticle extends AbstractVerticle {
 		//. serve api request
 		router.route(HttpMethod.POST, "/tsak/api").consumes("application/json").produces("application/json").handler(routingContext -> {
 			routingContext.request().bodyHandler(requestData -> {
-				
+				System.out.println("request recieved!!!");
 				JsonObject jsonData = requestData.toJsonObject();
 				
 				JsonArray commandOptions = jsonData.getJsonArray("values");
