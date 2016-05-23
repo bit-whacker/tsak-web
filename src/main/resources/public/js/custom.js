@@ -126,7 +126,7 @@ function addSelectFields(){
 				}
 				$('#synch_chk').click(function() {
 				if ( $('input[name="synch_chk"]').is(':checked') ) {
-					$('.synch_chk_div').append('<div class="radio_chk_div form-group"><form action=""><input type="radio" name="synch_rad" id="radio_1" value="radio_1" checked><span class="sync-txt">Filter Negative</span><br><input type="radio" name="synch_rad" id="radio_2" value="radio_2"><span class="sync-txt">Filter Positive</span><br><input type="radio" name="synch_rad" id="radio_3" value="radio_3"><span class="sync-txt">Extract Entities</span></form></div>');
+					$('.synch_chk_div').append('<div class="radio_chk_div form-group"><form action=""><input type="radio" name="synch_rad" id="radio_1" value="negative" checked><span class="sync-txt">Filter Negative</span><br><input type="radio" name="synch_rad" id="radio_2" value="positive"><span class="sync-txt">Filter Positive</span><br><input type="radio" name="synch_rad" id="radio_3" value="entity"><span class="sync-txt">Extract Entities</span></form></div>');
 				}
 				else if (!$('input[name="synch_chk"]').is(':checked') ) {
 					$('.radio_chk_div').hide();
@@ -205,11 +205,7 @@ function getJsonFormData(){
 	        var fieldvalue = input.val();
 			
 
-	        if(fieldname == "sentiment-checkbox" && fieldvalue.isChecked()){
-
-	        }else{
-
-	        }
+	        
 			if(fieldname == "-o"){
 				fieldvalue = fieldvalue.replace(/\\/g, '');
 				fieldvalue = fieldvalue.replace(/\//g, '');
@@ -238,6 +234,19 @@ function getJsonFormData(){
 		}
 	};
 	commandJson['values'] = jsonCommand;
+	//if sentiments is checked
+	if ( $('input[name="synch_chk"]').is(':checked') ) {
+			var chk_sentiment = ($("input[name=synch_rad]:checked").val());
+		if(chk_sentiment =='negative'){
+			commandJson['action'] = {"-sentiment":"negative", "-entity":"null"};
+		}
+		else if(chk_sentiment =='positive'){
+			commandJson['action'] = {"-sentiment":"positive", "-entity":"null"};
+		}
+		else if(chk_sentiment =='entity'){
+			commandJson['action'] = {"-sentiment":"null", "-entity":"null"};
+		}
+	}
 	//. var jsonString = JSON.stringify(commandJson);
 	return commandJson;
 }
